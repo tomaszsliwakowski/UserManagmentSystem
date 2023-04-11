@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const bodyparser = require("body-parser");
 const path = require("path");
+const connectDB = require("./server/database/connect");
 
 const app = express();
 
@@ -11,6 +12,9 @@ const PORT = process.env.PORT || 5000;
 
 //log
 app.use(morgan("tiny"));
+
+// DB Connect
+connectDB();
 
 //parse req to body parser
 app.use(bodyparser.urlencoded({ extended: true }));

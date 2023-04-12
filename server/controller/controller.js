@@ -2,8 +2,8 @@ let Userdb = require("../model/model");
 
 // new user
 exports.create = (req, res) => {
-  if (!req.body) {
-    res.status(400).send({ message: "Content con not be empty!" });
+  if (!req.body.name && !req.body.email) {
+    res.status(400).send({ message: "Content do not be empty!" });
     return;
   }
   const user = new Userdb({
@@ -16,7 +16,8 @@ exports.create = (req, res) => {
   user
     .save(user)
     .then((data) => {
-      res.send(data);
+      //res.send(data);
+      res.redirect("/add-user");
     })
     .catch((err) => {
       res.status(500).send({
@@ -29,16 +30,33 @@ exports.create = (req, res) => {
 
 //return user
 exports.find = (req, res) => {
-  Userdb.find()
-    .then((user) => {
-      res.send(user);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Error Occurred while retriving user information",
+  if (req.query.id) {
+    const id = req.query.id;
+    Userdb.findById(id)
+      .then((data) => {
+        if (!data) {
+          res.status(404).send({ message: `Not found user with id ${id}` });
+        } else {
+          res.send(data);
+        }
+      })
+      .catch((err) => {
+        res
+          .status(500)
+          .send({ message: `Error retrieving user with id ${id}` });
       });
-    });
+  } else {
+    Userdb.find()
+      .then((user) => {
+        res.send(user);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message || "Error Occurred while retriving user information",
+        });
+      });
+  }
 };
 
 //update user

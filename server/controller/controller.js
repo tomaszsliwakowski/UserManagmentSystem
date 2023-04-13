@@ -83,6 +83,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
+  console.log(id);
 
   Userdb.findByIdAndDelete(id)
     .then((data) => {

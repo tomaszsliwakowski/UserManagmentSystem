@@ -21,9 +21,7 @@ document
 if (window.location.pathname == "/") {
   document.querySelectorAll(".table tbody td a.delete").forEach((element) =>
     element?.addEventListener("click", async () => {
-      let id = document
-        .querySelector(".table tbody td a.delete")
-        .getAttribute("data-id");
+      let id = element.getAttribute("data-id");
 
       if (confirm("Do you really want to delete this record?")) {
         await fetch(`http://localhost:5000/api/users/${id}`, {

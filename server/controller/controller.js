@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 let Userdb = require("../model/model");
 
 // new user
@@ -62,11 +63,11 @@ exports.find = (req, res) => {
 //update user
 exports.update = (req, res) => {
   if (!req.body) {
-    return res.status(400).send({ message: "Data to update con not be empty" });
+    return res.status(400).send({ message: "Data to update can not be empty" });
   }
 
   const id = req.params.id;
-  Userdb.findByIdAndUpdate(id, req.body)
+  Userdb.findByIdAndUpdate(id, JSON.parse(Object.keys(req.body)[0]))
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -83,7 +84,6 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
   const id = req.params.id;
-  console.log(id);
 
   Userdb.findByIdAndDelete(id)
     .then((data) => {

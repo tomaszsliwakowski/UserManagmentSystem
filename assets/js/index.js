@@ -7,15 +7,22 @@ document
   ?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const UpdateData = getData(e.target);
-    await fetch(`http://localhost:5000/api/users/${UpdateData.id}`, {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(UpdateData),
-    }).then((res) => {
-      res.ok
-        ? alert("Data Updated Successflully")
-        : alert("Data Updated Unsuccessful");
-    });
+    if (UpdateData) {
+      let options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded ",
+        },
+        body: JSON.stringify(UpdateData),
+      };
+      let Url = `http://localhost:5000/api/users/${UpdateData.id}`;
+
+      await fetch(Url, options).then((res) => {
+        res.ok
+          ? alert("Data Updated Successflully")
+          : alert("Data Updated Unsuccessful");
+      });
+    }
   });
 
 if (window.location.pathname == "/") {

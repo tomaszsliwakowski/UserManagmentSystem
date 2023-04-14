@@ -15,7 +15,7 @@ document
         },
         body: JSON.stringify(UpdateData),
       };
-      let Url = `http://localhost:10000/api/users/${UpdateData.id}`;
+      let Url = `https://crud-app-p15b.onrender.com/api/users/${UpdateData.id}`;
 
       await fetch(Url, options).then((res) => {
         res.ok
@@ -31,7 +31,7 @@ if (window.location.pathname == "/") {
       let id = element.getAttribute("data-id");
 
       if (confirm("Do you really want to delete this record?")) {
-        await fetch(`http://localhost:10000/api/users/${id}`, {
+        await fetch(`https://crud-app-p15b.onrender.com/api/users/${id}`, {
           method: "DELETE",
           headers: { "Content-type": "application/json" },
         }).then((res) => {

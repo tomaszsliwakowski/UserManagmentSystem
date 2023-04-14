@@ -2,7 +2,7 @@ const axios = require("axios");
 
 exports.homeRoutes = (req, res) => {
   axios
-    .get("http://localhost:5000/api/users")
+    .get("https://crud-app-p15b.onrender.com/api/users")
     .then(function (response) {
       res.render("index", { users: response.data });
     })
@@ -17,7 +17,7 @@ exports.add_user = (req, res) => {
 
 exports.update_user = (req, res) => {
   axios
-    .get("http://localhost:5000/api/users", {
+    .get("https://crud-app-p15b.onrender.com/api/users", {
       params: { id: req.query.id },
     })
     .then(function (userdata) {
